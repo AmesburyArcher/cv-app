@@ -1,0 +1,102 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+:root {
+  --colour--main: #333533;
+  --colour--dark: #202020;
+
+  --colour--primary--accent: #ffd100;
+  --colour--secondary__accent: #ffee32;
+
+  --colour--light: #d6d6d6;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body,
+button {
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  color: white;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+
+  background-color: var(--colour--main);
+
+  height: 100vh;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 15%;
+  flex: 0 1 auto;
+}
+
+.header__buttons__container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  width: fit-content;
+  position: relative;
+}
+
+.header__button {
+  border: none;
+  border-radius: 0.8rem;
+  text-decoration: none;
+  padding: 1rem 1rem;
+  width: 12rem;
+  height: 4rem;
+  font-size: 1.4rem;
+  color: var(--colour--dark);
+  background-color: var(--colour--light);
+}
+
+.header__button.active {
+  background-color: var(--colour--primary--accent);
+}
+
+.header__button:is(:hover) {
+  box-shadow: 5px 5px 0px rgb(0, 0, 0, 1);
+  transition: box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.between__buttons__or {
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 0.8rem;
+  padding: 0.5rem;
+  background-color: var(--colour--dark);
+
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  text-align: center;
+}
+
+.resume__container {
+  border: 1px solid red;
+  width: 100vw;
+  flex: 1 1 auto;
+}
