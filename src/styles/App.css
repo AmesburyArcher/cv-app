@@ -20,6 +20,13 @@ html {
   font-size: 62.5%;
 }
 
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+
 body,
 button {
   box-sizing: border-box;
@@ -36,7 +43,7 @@ button {
 
   background-color: var(--colour--main);
 
-  height: 100vh;
+  /* height: 100vh; */
   gap: 1rem;
 }
 
@@ -73,6 +80,7 @@ button {
 
 .header__button.active {
   background-color: var(--colour--primary--accent);
+  border: 2px solid var(--colour--dark);
 }
 
 .header__button:is(:hover) {
@@ -99,4 +107,11 @@ button {
   border: 1px solid red;
   width: 100vw;
   flex: 1 1 auto;
+
+  overflow: scroll;
+}
+
+.resume {
+  border: 1px solid orange;
+  height: 1000px;
 }
