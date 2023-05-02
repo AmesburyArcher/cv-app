@@ -105,13 +105,41 @@ button {
 
 .resume__container {
   border: 1px solid red;
+  padding: 1rem;
   width: 100vw;
+  display: flex;
+  justify-content: center;
   flex: 1 1 auto;
 
   overflow: scroll;
 }
 
 .resume {
-  border: 1px solid orange;
-  height: 1000px;
+  height: 1123px;
+  width: 794px;
+  padding: 2rem;
+  overflow: scroll;
+
+  background-color: white;
+  color: var(--colour--dark);
+  box-shadow: 10px 10px 0px rgb(0, 0, 0, 1);
+}
+
+.upper__resume {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--colour--dark);
+  padding-bottom: 1rem;
+}
+
+.contact__info__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.contact__info__container > div:hover,
+.personal__info__container > div:hover {
+  cursor: pointer;
 }
