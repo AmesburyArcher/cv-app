@@ -139,7 +139,37 @@ button {
   justify-content: center;
 }
 
-.contact__info__container > div:hover,
-.personal__info__container > div:hover {
+.contact__info__container > .editing:hover,
+.personal__info__container > .editing:hover {
   cursor: pointer;
+}
+
+.education__info__container {
+  padding: 1rem 0rem;
+  border-bottom: 2px solid var(--colour--dark);
+}
+
+.education__entry {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.education__entry:not(:last-child) {
+  border-bottom: 1px solid var(--colour--dark);
+}
+
+.education__wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 5rem;
+}
+
+.education__name {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.education__degree {
+  font-style: italic;
 }

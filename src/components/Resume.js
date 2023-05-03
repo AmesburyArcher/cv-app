@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Resume() {
+export default function Resume({ mode }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -39,6 +39,7 @@ export default function Resume() {
             handleFirstName={handleFirstName}
             last={lastName}
             handleLastName={handleLastName}
+            mode={mode}
           />
           <ContactInfo
             addy={addy}
@@ -47,16 +48,21 @@ export default function Resume() {
             handlePhone={handlePhone}
             email={email}
             handleEmail={handleEmail}
+            mode={mode}
           />
         </div>
-        <EducationInfo education={education} setEducation={setEducation} />
+        <EducationInfo
+          education={education}
+          setEducation={setEducation}
+          mode={mode}
+        />
         <ExperienceInfo />
       </div>
     </div>
   );
 }
 
-function PersonalInfo({ handleFirstName, first, handleLastName, last }) {
+function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
   const [editFirst, setEditFirst] = useState(false);
   const [editLast, setEditLast] = useState(false);
 
@@ -65,61 +71,69 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last }) {
       <h2 className="personal__info__title">Personal Information</h2>
       {editFirst === false ? (
         <div
+          className={mode === 0 ? "editing" : ""}
           onClick={function () {
+            if (mode === 1) return;
             setEditFirst(true);
           }}
         >
           {first === "" ? "FIRST NAME" : first}
         </div>
       ) : (
-        <form
-          onBlur={function () {
-            setEditFirst(false);
-          }}
-          onSubmit={function (e) {
-            e.preventDefault();
-            setEditFirst(false);
-          }}
-        >
-          <input
-            autoFocus
-            type="text"
-            placeholder="Meex"
-            onChange={function (e) {
-              handleFirstName(e);
+        mode === 0 && (
+          <form
+            onBlur={function () {
+              setEditFirst(false);
             }}
-          ></input>
-          <button type="button">Enter</button>
-        </form>
+            onSubmit={function (e) {
+              e.preventDefault();
+              setEditFirst(false);
+            }}
+          >
+            <input
+              autoFocus
+              type="text"
+              placeholder="Meex"
+              onChange={function (e) {
+                handleFirstName(e);
+              }}
+            ></input>
+            <button type="button">Enter</button>
+          </form>
+        )
       )}
       {editLast === false ? (
         <div
+          className={mode === 0 ? "editing" : ""}
           onClick={function () {
+            if (mode === 1) return;
             setEditLast(true);
           }}
         >
           {last === "" ? "LAST NAME" : last}
         </div>
       ) : (
-        <form
-          onBlur={function () {
-            setEditLast(false);
-          }}
-          onSubmit={function (e) {
-            e.preventDefault();
-            setEditLast(false);
-          }}
-        >
-          <input
-            autoFocus
-            type="text"
-            placeholder="Yeeeeehaw"
-            onChange={function (e) {
-              handleLastName(e);
+        mode === 0 && (
+          <form
+            onBlur={function () {
+              setEditLast(false);
             }}
-          ></input>
-          <button type="button">Enter</button>
-        </form>
+            onSubmit={function (e) {
+              e.preventDefault();
+              setEditLast(false);
+            }}
+          >
+            <input
+              autoFocus
+              type="text"
+              placeholder="Yeeeeehaw"
+              onChange={function (e) {
+                handleLastName(e);
+              }}
+            ></input>
+            <button type="button">Enter</button>
+          </form>
+        )
       )}
       <div></div>
     </section>
@@ -133,6 +147,7 @@ function ContactInfo({
   phone,
   handleEmail,
   email,
+  mode,
 }) {
   const [editAddy, setEditAddy] = useState(false);
   const [editPhone, setEditPhone] = useState(false);
@@ -143,7 +158,9 @@ function ContactInfo({
       <h2 className="contact__info__title">Contact Information</h2>
       {editAddy === false ? (
         <div
+          className={mode === 0 ? "editing" : ""}
           onClick={function () {
+            if (mode === 1) return;
             setEditAddy(true);
           }}
         >
@@ -169,30 +186,34 @@ function ContactInfo({
           {addy === "" ? "ADDRESS" : addy}
         </div>
       ) : (
-        <form
-          onBlur={function () {
-            setEditAddy(false);
-          }}
-          onSubmit={function (e) {
-            e.preventDefault();
-            setEditAddy(false);
-          }}
-        >
-          <input
-            autoFocus
-            type="text"
-            placeholder="1234 Google St"
-            onChange={function (e) {
-              handleAddy(e);
+        mode === 0 && (
+          <form
+            onBlur={function () {
+              setEditAddy(false);
             }}
-          ></input>
-          <button type="button">Enter</button>
-        </form>
+            onSubmit={function (e) {
+              e.preventDefault();
+              setEditAddy(false);
+            }}
+          >
+            <input
+              autoFocus
+              type="text"
+              placeholder="1234 Google St"
+              onChange={function (e) {
+                handleAddy(e);
+              }}
+            ></input>
+            <button type="button">Enter</button>
+          </form>
+        )
       )}
 
       {editPhone === false ? (
         <div
+          className={mode === 0 ? "editing" : ""}
           onClick={function () {
+            if (mode === 1) return;
             setEditPhone(true);
           }}
         >
@@ -218,30 +239,34 @@ function ContactInfo({
           {phone === "" ? "PHONE NUMBER" : phone}
         </div>
       ) : (
-        <form
-          onBlur={function () {
-            setEditPhone(false);
-          }}
-          onSubmit={function (e) {
-            e.preventDefault();
-            setEditPhone(false);
-          }}
-        >
-          <input
-            autoFocus
-            type="text"
-            placeholder="604-867-5309"
-            onChange={function (e) {
-              handlePhone(e);
+        mode === 0 && (
+          <form
+            onBlur={function () {
+              setEditPhone(false);
             }}
-          ></input>
-          <button type="button">Enter</button>
-        </form>
+            onSubmit={function (e) {
+              e.preventDefault();
+              setEditPhone(false);
+            }}
+          >
+            <input
+              autoFocus
+              type="text"
+              placeholder="604-867-5309"
+              onChange={function (e) {
+                handlePhone(e);
+              }}
+            ></input>
+            <button type="button">Enter</button>
+          </form>
+        )
       )}
 
       {editEmail === false ? (
         <div
+          className={mode === 0 ? "editing" : ""}
           onClick={function () {
+            if (mode === 1) return;
             setEditEmail(true);
           }}
         >
@@ -267,31 +292,33 @@ function ContactInfo({
           {email === "" ? "EMAIL" : email}
         </div>
       ) : (
-        <form
-          onBlur={function () {
-            setEditEmail(false);
-          }}
-          onSubmit={function (e) {
-            e.preventDefault();
-            setEditEmail(false);
-          }}
-        >
-          <input
-            autoFocus
-            type="text"
-            placeholder="meeex@gmail.com"
-            onChange={function (e) {
-              handleEmail(e);
+        mode === 0 && (
+          <form
+            onBlur={function () {
+              setEditEmail(false);
             }}
-          ></input>
-          <button type="button">Enter</button>
-        </form>
+            onSubmit={function (e) {
+              e.preventDefault();
+              setEditEmail(false);
+            }}
+          >
+            <input
+              autoFocus
+              type="text"
+              placeholder="meeex@gmail.com"
+              onChange={function (e) {
+                handleEmail(e);
+              }}
+            ></input>
+            <button type="button">Enter</button>
+          </form>
+        )
       )}
     </section>
   );
 }
 
-function EducationInfo({ education, setEducation }) {
+function EducationInfo({ education, setEducation, mode }) {
   const [editing, setEditing] = useState(false);
 
   const [eductionObj, setEducationObj] = useState({});
@@ -339,11 +366,18 @@ function EducationInfo({ education, setEducation }) {
     const educationList = education.map((educ) => {
       return (
         <div className="education__entry">
-          <div className="education__name">{educ.name}</div>
-          <div className="education__city">{educ.city}</div>
-          <div className="education__date">{educ.date}</div>
-          <div className="education__degree">{educ.degree}</div>
-          <div className="education__info">{educ.info}</div>
+          <div className="education__wrapper">
+            <div className="education__name">{educ.name}</div>
+            <div className="education__date">{educ.date}</div>
+          </div>
+          <div className="education__wrapper">
+            <div className="education__degree">{educ.degree}</div>
+            <div className="education__city">{educ.city}</div>
+          </div>
+          <div className="education__wrapper">
+            <div className="education__info">{educ.info}</div>
+            {mode === 0 ? <button type="button">Delete</button> : ""}
+          </div>
         </div>
       );
     });
@@ -355,70 +389,72 @@ function EducationInfo({ education, setEducation }) {
       <h2 className="education__info__title">Educational Experience</h2>
       <div>
         {education.length > 0 ? displayEducation() : ""}
-        {editing === false ? (
-          <button
-            onClick={function () {
-              setEditing(true);
-            }}
-          >
-            Add Education
-          </button>
-        ) : (
-          <form
-            className="education__info__form"
-            onSubmit={function (e) {
-              e.preventDefault();
-              setEducation([...education, eductionObj]);
-              setEditing(false);
-              setEducationObj({});
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Simon Fraser University"
-              onChange={function (e) {
-                handleChange("name", e.target.value);
-              }}
-            ></input>
-            <input
-              type="text"
-              placeholder="Burnaby, BC"
-              onChange={function (e) {
-                handleChange("city", e.target.value);
-              }}
-            ></input>
-            <input
-              type="text"
-              placeholder="2016-2023"
-              onChange={function (e) {
-                handleChange("date", e.target.value);
-              }}
-            ></input>
-            <input
-              type="text"
-              placeholder="Bachelor of Science Majoring in Computer Science"
-              onChange={function (e) {
-                handleChange("degree", e.target.value);
-              }}
-            ></input>
-            <textarea
-              placeholder="Interesting information about your experience, keep it short!"
-              onChange={function (e) {
-                handleChange("info", e.target.value);
-              }}
-            ></textarea>
-            <button>Submit</button>
-            <button
-              type="button"
-              onClick={function () {
-                setEditing(false);
-                setEducationObj({});
-              }}
-            >
-              Cancel
-            </button>
-          </form>
-        )}
+        {editing === false
+          ? mode === 0 && (
+              <button
+                onClick={function () {
+                  setEditing(true);
+                }}
+              >
+                Add Education
+              </button>
+            )
+          : mode === 0 && (
+              <form
+                className="education__info__form"
+                onSubmit={function (e) {
+                  e.preventDefault();
+                  setEducation([...education, eductionObj]);
+                  setEditing(false);
+                  setEducationObj({});
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Simon Fraser University"
+                  onChange={function (e) {
+                    handleChange("name", e.target.value);
+                  }}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="Burnaby, BC"
+                  onChange={function (e) {
+                    handleChange("city", e.target.value);
+                  }}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="2016-2023"
+                  onChange={function (e) {
+                    handleChange("date", e.target.value);
+                  }}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="Bachelor of Science Majoring in Computer Science"
+                  onChange={function (e) {
+                    handleChange("degree", e.target.value);
+                  }}
+                ></input>
+                <textarea
+                  placeholder="Interesting information about your experience, keep it short!"
+                  onChange={function (e) {
+                    handleChange("info", e.target.value);
+                  }}
+                ></textarea>
+                <button>Submit</button>
+                <button
+                  type="button"
+                  onClick={function () {
+                    setEditing(false);
+                    setEducationObj({});
+                  }}
+                >
+                  Cancel
+                </button>
+              </form>
+            )}
       </div>
     </section>
   );

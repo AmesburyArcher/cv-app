@@ -20,7 +20,7 @@ function App() {
         handleModeView={handleModeView}
         mode={mode}
       />
-      <Resume />
+      <Resume mode={mode} />
     </div>
   );
 }
