@@ -182,43 +182,51 @@ button {
   font-weight: bold;
 }
 
-.education__info__container {
+.education__info__container,
+.experience__info__container {
   padding: 1rem 0rem;
   border-bottom: 2px solid var(--colour--dark);
 }
 
-.education__info__form {
+.education__info__form,
+.work__info__form {
   display: grid;
   grid-template-rows: 1fr 1fr 2fr 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-.education__info__form > textarea {
+.education__info__form > textarea,
+.work__info__form > textarea {
   grid-column: 1 / 3;
 }
 
-.education__entry {
+.education__entry,
+.work__entry {
   display: flex;
   flex-direction: column;
   padding: 1rem;
 }
 
-.education__entry:not(:last-child) {
+.education__entry:not(:last-child),
+.work__entry:not(:last-child) {
   border-bottom: 1px solid var(--colour--dark);
 }
 
-.education__wrapper {
+.education__wrapper,
+.work__wrapper {
   display: flex;
   justify-content: space-between;
   padding-right: 5rem;
 }
 
-.education__name {
+.education__name,
+.work__name {
   font-weight: bold;
   font-size: 1.6rem;
 }
 
-.education__degree {
+.education__degree,
+.work__role {
   font-style: italic;
 }

@@ -10,6 +10,8 @@ export default function Resume({ mode }) {
 
   const [education, setEducation] = useState([]);
 
+  const [experience, setExperience] = useState([]);
+
   function handleFirstName(e) {
     setFirstName(e.target.value);
   }
@@ -56,7 +58,11 @@ export default function Resume({ mode }) {
           setEducation={setEducation}
           mode={mode}
         />
-        <ExperienceInfo />
+        <ExperienceInfo
+          experience={experience}
+          setExperience={setExperience}
+          mode={mode}
+        />
       </div>
     </div>
   );
@@ -74,7 +80,7 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
       {editFirst === false ? (
         <div
           className={mode === 0 ? "editing resume__name" : "resume__name"}
-          onClick={function () {
+          onClick={function() {
             if (mode === 1) return;
             setEditFirst(true);
           }}
@@ -84,10 +90,10 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
       ) : (
         mode === 0 && (
           <form
-            onBlur={function () {
+            onBlur={function() {
               setEditFirst(false);
             }}
-            onSubmit={function (e) {
+            onSubmit={function(e) {
               e.preventDefault();
               setEditFirst(false);
             }}
@@ -98,7 +104,7 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
               autoFocus
               type="text"
               placeholder="Meex"
-              onChange={function (e) {
+              onChange={function(e) {
                 handleFirstName(e);
               }}
             ></input>
@@ -114,7 +120,7 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
       {editLast === false ? (
         <div
           className={mode === 0 ? "editing resume__name" : "resume__name"}
-          onClick={function () {
+          onClick={function() {
             if (mode === 1) return;
             setEditLast(true);
           }}
@@ -124,10 +130,10 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
       ) : (
         mode === 0 && (
           <form
-            onBlur={function () {
+            onBlur={function() {
               setEditLast(false);
             }}
-            onSubmit={function (e) {
+            onSubmit={function(e) {
               e.preventDefault();
               setEditLast(false);
             }}
@@ -138,7 +144,7 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
               autoFocus
               type="text"
               placeholder="Yeeeeehaw"
-              onChange={function (e) {
+              onChange={function(e) {
                 handleLastName(e);
               }}
             ></input>
@@ -177,7 +183,7 @@ function ContactInfo({
       {editAddy === false ? (
         <div
           className={mode === 0 ? "editing" : ""}
-          onClick={function () {
+          onClick={function() {
             if (mode === 1) return;
             setEditAddy(true);
           }}
@@ -206,10 +212,10 @@ function ContactInfo({
       ) : (
         mode === 0 && (
           <form
-            onBlur={function () {
+            onBlur={function() {
               setEditAddy(false);
             }}
-            onSubmit={function (e) {
+            onSubmit={function(e) {
               e.preventDefault();
               setEditAddy(false);
             }}
@@ -220,7 +226,7 @@ function ContactInfo({
               autoFocus
               type="text"
               placeholder="1234 Google St"
-              onChange={function (e) {
+              onChange={function(e) {
                 handleAddy(e);
               }}
             ></input>
@@ -237,7 +243,7 @@ function ContactInfo({
       {editPhone === false ? (
         <div
           className={mode === 0 ? "editing" : ""}
-          onClick={function () {
+          onClick={function() {
             if (mode === 1) return;
             setEditPhone(true);
           }}
@@ -266,10 +272,10 @@ function ContactInfo({
       ) : (
         mode === 0 && (
           <form
-            onBlur={function () {
+            onBlur={function() {
               setEditPhone(false);
             }}
-            onSubmit={function (e) {
+            onSubmit={function(e) {
               e.preventDefault();
               setEditPhone(false);
             }}
@@ -280,7 +286,7 @@ function ContactInfo({
               autoFocus
               type="text"
               placeholder="604-867-5309"
-              onChange={function (e) {
+              onChange={function(e) {
                 handlePhone(e);
               }}
             ></input>
@@ -297,7 +303,7 @@ function ContactInfo({
       {editEmail === false ? (
         <div
           className={mode === 0 ? "editing" : ""}
-          onClick={function () {
+          onClick={function() {
             if (mode === 1) return;
             setEditEmail(true);
           }}
@@ -326,10 +332,10 @@ function ContactInfo({
       ) : (
         mode === 0 && (
           <form
-            onBlur={function () {
+            onBlur={function() {
               setEditEmail(false);
             }}
-            onSubmit={function (e) {
+            onSubmit={function(e) {
               e.preventDefault();
               setEditEmail(false);
             }}
@@ -340,7 +346,7 @@ function ContactInfo({
               autoFocus
               type="text"
               placeholder="meeex@gmail.com"
-              onChange={function (e) {
+              onChange={function(e) {
                 handleEmail(e);
               }}
             ></input>
@@ -362,7 +368,7 @@ function EducationInfo({ education, setEducation, mode }) {
 
   const [eductionObj, setEducationObj] = useState({});
 
-  const handleChange = function (which, value) {
+  const handleChange = function(which, value) {
     switch (which) {
       case "name":
         setEducationObj({
@@ -401,7 +407,7 @@ function EducationInfo({ education, setEducation, mode }) {
     }
   };
 
-  const displayEducation = function () {
+  const displayEducation = function() {
     const educationList = education.map((educ) => {
       return (
         <div className="education__entry">
@@ -441,7 +447,7 @@ function EducationInfo({ education, setEducation, mode }) {
           ? mode === 0 && (
               <button
                 className="resume__add__button resume__button"
-                onClick={function () {
+                onClick={function() {
                   setEditing(true);
                 }}
               >
@@ -451,7 +457,7 @@ function EducationInfo({ education, setEducation, mode }) {
           : mode === 0 && (
               <form
                 className="education__info__form"
-                onSubmit={function (e) {
+                onSubmit={function(e) {
                   e.preventDefault();
                   setEducation([...education, eductionObj]);
                   setEditing(false);
@@ -461,34 +467,34 @@ function EducationInfo({ education, setEducation, mode }) {
                 <input
                   type="text"
                   placeholder="Simon Fraser University"
-                  onChange={function (e) {
+                  onChange={function(e) {
                     handleChange("name", e.target.value);
                   }}
                 ></input>
                 <input
                   type="text"
                   placeholder="Burnaby, BC"
-                  onChange={function (e) {
+                  onChange={function(e) {
                     handleChange("city", e.target.value);
                   }}
                 ></input>
                 <input
                   type="text"
                   placeholder="2016-2023"
-                  onChange={function (e) {
+                  onChange={function(e) {
                     handleChange("date", e.target.value);
                   }}
                 ></input>
                 <input
                   type="text"
                   placeholder="Bachelor of Science Majoring in Computer Science"
-                  onChange={function (e) {
+                  onChange={function(e) {
                     handleChange("degree", e.target.value);
                   }}
                 ></input>
                 <textarea
                   placeholder="Interesting information about your experience, keep it short!"
-                  onChange={function (e) {
+                  onChange={function(e) {
                     handleChange("info", e.target.value);
                   }}
                 ></textarea>
@@ -498,7 +504,7 @@ function EducationInfo({ education, setEducation, mode }) {
                 <button
                   className="resume__cancel__button resume__button"
                   type="button"
-                  onClick={function () {
+                  onClick={function() {
                     setEditing(false);
                     setEducationObj({});
                   }}
@@ -512,11 +518,156 @@ function EducationInfo({ education, setEducation, mode }) {
   );
 }
 
-function ExperienceInfo() {
+function ExperienceInfo({ experience, setExperience, mode }) {
+  const [editing, setEditing] = useState(false);
+  const [experienceObj, setExperienceObj] = useState({});
+
+  const displayExperience = function() {
+    const exp = experience.map((ex) => {
+      return (
+        <div className="work__entry">
+          <div className="work__wrapper">
+            <div className="work__name">{ex.name}</div>
+            <div>{ex.city}</div>
+          </div>
+          <div className="work__wrapper">
+            <div className="work__role">{ex.role}</div>
+            <div>{ex.date}</div>
+          </div>
+          <div className="work__wrapper">
+            <div>{ex.info}</div>
+            {mode === 0 ? (
+              <button
+                className="resume__delete__button resume__button"
+                type="button"
+              >
+                Delete
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+      );
+    });
+    return <ul>{exp}</ul>;
+  };
+
+  const handleChange = function(which, value) {
+    switch (which) {
+      case "name":
+        setExperienceObj({
+          ...experienceObj,
+          name: value,
+        });
+        break;
+
+      case "city":
+        setExperienceObj({
+          ...experienceObj,
+          city: value,
+        });
+        break;
+
+      case "date":
+        setExperienceObj({
+          ...experienceObj,
+          date: value,
+        });
+        break;
+
+      case "role":
+        setExperienceObj({
+          ...experienceObj,
+          role: value,
+        });
+        break;
+
+      case "info":
+        setExperienceObj({
+          ...experienceObj,
+          info: value,
+        });
+        break;
+    }
+  };
+
   return (
     <section className="experience__info__container">
       <h2 className="experience__info__title">Previous Experience</h2>
-      <div></div>
+      <div>
+        {experience.length > 0 ? displayExperience() : ""}
+        {editing === false
+          ? mode === 0 && (
+              <button
+                className="resume__add__button resume__button"
+                onClick={function() {
+                  setEditing(true);
+                }}
+              >
+                Add Work Experience
+              </button>
+            )
+          : mode === 0 && (
+              <form
+                className="work__info__form"
+                onSubmit={function(e) {
+                  e.preventDefault();
+                  setExperience([...experience, experienceObj]);
+                  setEditing(false);
+                  setExperienceObj({});
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Netflix"
+                  onChange={function(e) {
+                    handleChange("name", e.target.value);
+                  }}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="Burnaby, BC"
+                  onChange={function(e) {
+                    handleChange("city", e.target.value);
+                  }}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="2016-2023"
+                  onChange={function(e) {
+                    handleChange("date", e.target.value);
+                  }}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="Senior Developer"
+                  onChange={function(e) {
+                    handleChange("role", e.target.value);
+                  }}
+                ></input>
+                <textarea
+                  placeholder="Interesting information about your experience, keep it short!"
+                  onChange={function(e) {
+                    handleChange("info", e.target.value);
+                  }}
+                ></textarea>
+                <button className="resume__submit__button resume__button">
+                  Submit
+                </button>
+                <button
+                  className="resume__cancel__button resume__button"
+                  type="button"
+                  onClick={function() {
+                    setEditing(false);
+                    setExperienceObj({});
+                  }}
+                >
+                  Cancel
+                </button>
+              </form>
+            )}
+      </div>
     </section>
   );
 }
