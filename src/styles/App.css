@@ -125,6 +125,21 @@ button {
   box-shadow: 10px 10px 0px rgb(0, 0, 0, 1);
 }
 
+.resume__button {
+  border: 1px solid var(--colour--dark);
+  text-decoration: none;
+  color: var(--colour--dark);
+  background-color: var(--colour--primary--accent);
+  border-radius: 0.8rem;
+  padding: 0.5rem;
+}
+
+.resume__button:hover {
+  cursor: pointer;
+  box-shadow: 3px 3px 0px rgb(0, 0, 0, 1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
 .upper__resume {
   display: flex;
   justify-content: space-between;
@@ -144,9 +159,43 @@ button {
   cursor: pointer;
 }
 
+.personal__info__container > form,
+.contact__info__container > form {
+  display: flex;
+  gap: 1rem;
+}
+
+.resume__input {
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* border-bottom: 1px solid var(--colour--dark); */
+}
+
+.resume__name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .education__info__container {
   padding: 1rem 0rem;
   border-bottom: 2px solid var(--colour--dark);
+}
+
+.education__info__form {
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.education__info__form > textarea {
+  grid-column: 1 / 3;
 }
 
 .education__entry {

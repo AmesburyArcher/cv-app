@@ -68,10 +68,12 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
 
   return (
     <section className="personal__info__container">
-      <h2 className="personal__info__title">Personal Information</h2>
+      {mode === 0 && (
+        <h2 className="personal__info__title">Personal Information</h2>
+      )}
       {editFirst === false ? (
         <div
-          className={mode === 0 ? "editing" : ""}
+          className={mode === 0 ? "editing resume__name" : "resume__name"}
           onClick={function () {
             if (mode === 1) return;
             setEditFirst(true);
@@ -91,6 +93,8 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
             }}
           >
             <input
+              maxLength={30}
+              className="resume__input"
               autoFocus
               type="text"
               placeholder="Meex"
@@ -98,13 +102,18 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
                 handleFirstName(e);
               }}
             ></input>
-            <button type="button">Enter</button>
+            <button
+              className="resume__enter__button resume__button"
+              type="button"
+            >
+              Enter
+            </button>
           </form>
         )
       )}
       {editLast === false ? (
         <div
-          className={mode === 0 ? "editing" : ""}
+          className={mode === 0 ? "editing resume__name" : "resume__name"}
           onClick={function () {
             if (mode === 1) return;
             setEditLast(true);
@@ -124,6 +133,8 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
             }}
           >
             <input
+              maxLength={35}
+              className="resume__input"
               autoFocus
               type="text"
               placeholder="Yeeeeehaw"
@@ -131,7 +142,12 @@ function PersonalInfo({ handleFirstName, first, handleLastName, last, mode }) {
                 handleLastName(e);
               }}
             ></input>
-            <button type="button">Enter</button>
+            <button
+              className="resume__enter__button resume__button"
+              type="button"
+            >
+              Enter
+            </button>
           </form>
         )
       )}
@@ -155,7 +171,9 @@ function ContactInfo({
 
   return (
     <section className="contact__info__container">
-      <h2 className="contact__info__title">Contact Information</h2>
+      {mode === 0 && (
+        <h2 className="contact__info__title">Contact Information</h2>
+      )}
       {editAddy === false ? (
         <div
           className={mode === 0 ? "editing" : ""}
@@ -197,6 +215,8 @@ function ContactInfo({
             }}
           >
             <input
+              maxLength={40}
+              className="resume__input"
               autoFocus
               type="text"
               placeholder="1234 Google St"
@@ -204,7 +224,12 @@ function ContactInfo({
                 handleAddy(e);
               }}
             ></input>
-            <button type="button">Enter</button>
+            <button
+              className="resume__enter__button resume__button"
+              type="button"
+            >
+              Enter
+            </button>
           </form>
         )
       )}
@@ -250,6 +275,8 @@ function ContactInfo({
             }}
           >
             <input
+              maxLength={20}
+              className="resume__input"
               autoFocus
               type="text"
               placeholder="604-867-5309"
@@ -257,7 +284,12 @@ function ContactInfo({
                 handlePhone(e);
               }}
             ></input>
-            <button type="button">Enter</button>
+            <button
+              className="resume__enter__button resume__button"
+              type="button"
+            >
+              Enter
+            </button>
           </form>
         )
       )}
@@ -303,6 +335,8 @@ function ContactInfo({
             }}
           >
             <input
+              maxLength={40}
+              className="resume__input"
               autoFocus
               type="text"
               placeholder="meeex@gmail.com"
@@ -310,7 +344,12 @@ function ContactInfo({
                 handleEmail(e);
               }}
             ></input>
-            <button type="button">Enter</button>
+            <button
+              className="resume__enter__button resume__button"
+              type="button"
+            >
+              Enter
+            </button>
           </form>
         )
       )}
@@ -376,7 +415,16 @@ function EducationInfo({ education, setEducation, mode }) {
           </div>
           <div className="education__wrapper">
             <div className="education__info">{educ.info}</div>
-            {mode === 0 ? <button type="button">Delete</button> : ""}
+            {mode === 0 ? (
+              <button
+                className="resume__delete__button resume__button"
+                type="button"
+              >
+                Delete
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       );
@@ -392,6 +440,7 @@ function EducationInfo({ education, setEducation, mode }) {
         {editing === false
           ? mode === 0 && (
               <button
+                className="resume__add__button resume__button"
                 onClick={function () {
                   setEditing(true);
                 }}
@@ -443,8 +492,11 @@ function EducationInfo({ education, setEducation, mode }) {
                     handleChange("info", e.target.value);
                   }}
                 ></textarea>
-                <button>Submit</button>
+                <button className="resume__submit__button resume__button">
+                  Submit
+                </button>
                 <button
+                  className="resume__cancel__button resume__button"
                   type="button"
                   onClick={function () {
                     setEditing(false);
