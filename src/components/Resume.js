@@ -1,4 +1,5 @@
 import { useState } from "react";
+import uniqid from "uniqid";
 
 export default function Resume({ mode }) {
   const [firstName, setFirstName] = useState("");
@@ -191,15 +192,15 @@ function ContactInfo({
           {
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-addy"
+              className="icon icon-addy"
               width="20"
               height="20"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              strokeWidth="2"
               stroke="currentColor"
               fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
@@ -252,15 +253,15 @@ function ContactInfo({
           {
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-phone"
+              className="icon icon-phone"
               width="20"
               height="20"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              strokeWidth="2"
               stroke="currentColor"
               fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
@@ -312,15 +313,15 @@ function ContactInfo({
           {
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-mail"
+              className="icon icon-tabler icon-tabler-mail"
               width="20"
               height="20"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              strokeWidth="2"
               stroke="currentColor"
               fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
@@ -365,8 +366,10 @@ function ContactInfo({
 
 function EducationInfo({ education, setEducation, mode }) {
   const [editing, setEditing] = useState(false);
-
-  const [eductionObj, setEducationObj] = useState({});
+  const [editingEntry, setEditingEntry] = useState({});
+  const [eductionObj, setEducationObj] = useState({
+    id: uniqid(),
+  });
 
   const handleChange = function(which, value) {
     switch (which) {
@@ -410,7 +413,7 @@ function EducationInfo({ education, setEducation, mode }) {
   const displayEducation = function() {
     const educationList = education.map((educ) => {
       return (
-        <div className="education__entry">
+        <li className="education__entry" key={educ.id}>
           <div className="education__wrapper">
             <div className="education__name">{educ.name}</div>
             <div className="education__date">{educ.date}</div>
@@ -422,17 +425,36 @@ function EducationInfo({ education, setEducation, mode }) {
           <div className="education__wrapper">
             <div className="education__info">{educ.info}</div>
             {mode === 0 ? (
-              <button
-                className="resume__delete__button resume__button"
-                type="button"
-              >
-                Delete
-              </button>
+              <div className="button__wrapper">
+                <button
+                  onClick={function() {
+                    setEducation(education.filter((key) => key.id != educ.id));
+                  }}
+                  className="resume__delete__button resume__button"
+                  type="button"
+                >
+                  Delete
+                </button>
+                <button
+                  type="button"
+                  className="resume__button"
+                  onClick={function() {
+                    setEducation(education.filter((key) => key.id != educ.id));
+                    setEditingEntry({ ...educ });
+                    setEditing(true);
+                    setEducationObj({
+                      ...educ,
+                    });
+                  }}
+                >
+                  Edit
+                </button>
+              </div>
             ) : (
               ""
             )}
           </div>
-        </div>
+        </li>
       );
     });
     return <ul>{educationList}</ul>;
@@ -461,12 +483,15 @@ function EducationInfo({ education, setEducation, mode }) {
                   e.preventDefault();
                   setEducation([...education, eductionObj]);
                   setEditing(false);
-                  setEducationObj({});
+                  setEducationObj({ id: uniqid() });
+                  setEditingEntry({});
                 }}
               >
                 <input
                   type="text"
                   placeholder="Simon Fraser University"
+                  value={eductionObj.name || ""}
+                  maxLength={40}
                   onChange={function(e) {
                     handleChange("name", e.target.value);
                   }}
@@ -474,6 +499,8 @@ function EducationInfo({ education, setEducation, mode }) {
                 <input
                   type="text"
                   placeholder="Burnaby, BC"
+                  value={eductionObj.city || ""}
+                  maxLength={40}
                   onChange={function(e) {
                     handleChange("city", e.target.value);
                   }}
@@ -481,6 +508,8 @@ function EducationInfo({ education, setEducation, mode }) {
                 <input
                   type="text"
                   placeholder="2016-2023"
+                  value={eductionObj.date || ""}
+                  maxLength={15}
                   onChange={function(e) {
                     handleChange("date", e.target.value);
                   }}
@@ -488,12 +517,16 @@ function EducationInfo({ education, setEducation, mode }) {
                 <input
                   type="text"
                   placeholder="Bachelor of Science Majoring in Computer Science"
+                  value={eductionObj.degree || ""}
+                  maxLength={40}
                   onChange={function(e) {
                     handleChange("degree", e.target.value);
                   }}
                 ></input>
                 <textarea
                   placeholder="Interesting information about your experience, keep it short!"
+                  value={eductionObj.info || ""}
+                  maxLength={60}
                   onChange={function(e) {
                     handleChange("info", e.target.value);
                   }}
@@ -506,7 +539,11 @@ function EducationInfo({ education, setEducation, mode }) {
                   type="button"
                   onClick={function() {
                     setEditing(false);
-                    setEducationObj({});
+                    setEducationObj({ id: uniqid() });
+                    if (Object.keys(editingEntry).length > 0) {
+                      setEducation([...education, editingEntry]);
+                      setEditingEntry({});
+                    }
                   }}
                 >
                   Cancel
@@ -520,12 +557,15 @@ function EducationInfo({ education, setEducation, mode }) {
 
 function ExperienceInfo({ experience, setExperience, mode }) {
   const [editing, setEditing] = useState(false);
-  const [experienceObj, setExperienceObj] = useState({});
+  const [editingEntry, setEditingEntry] = useState({});
+  const [experienceObj, setExperienceObj] = useState({
+    id: uniqid(),
+  });
 
   const displayExperience = function() {
     const exp = experience.map((ex) => {
       return (
-        <div className="work__entry">
+        <li className="work__entry" key={ex.id}>
           <div className="work__wrapper">
             <div className="work__name">{ex.name}</div>
             <div>{ex.city}</div>
@@ -537,17 +577,36 @@ function ExperienceInfo({ experience, setExperience, mode }) {
           <div className="work__wrapper">
             <div>{ex.info}</div>
             {mode === 0 ? (
-              <button
-                className="resume__delete__button resume__button"
-                type="button"
-              >
-                Delete
-              </button>
+              <div className="button__wrapper">
+                <button
+                  onClick={function() {
+                    setExperience(experience.filter((key) => key.id != ex.id));
+                  }}
+                  className="resume__delete__button resume__button"
+                  type="button"
+                >
+                  Delete
+                </button>
+                <button
+                  type="button"
+                  className="resume__button"
+                  onClick={function() {
+                    setExperience(experience.filter((key) => key.id != ex.id));
+                    setEditingEntry({ ...ex });
+                    setEditing(true);
+                    setExperienceObj({
+                      ...ex,
+                    });
+                  }}
+                >
+                  Edit
+                </button>
+              </div>
             ) : (
               ""
             )}
           </div>
-        </div>
+        </li>
       );
     });
     return <ul>{exp}</ul>;
@@ -615,12 +674,15 @@ function ExperienceInfo({ experience, setExperience, mode }) {
                   e.preventDefault();
                   setExperience([...experience, experienceObj]);
                   setEditing(false);
-                  setExperienceObj({});
+                  setExperienceObj({ id: uniqid() });
+                  setEditingEntry({});
                 }}
               >
                 <input
                   type="text"
                   placeholder="Netflix"
+                  value={experienceObj.name || ""}
+                  maxLength={40}
                   onChange={function(e) {
                     handleChange("name", e.target.value);
                   }}
@@ -628,6 +690,8 @@ function ExperienceInfo({ experience, setExperience, mode }) {
                 <input
                   type="text"
                   placeholder="Burnaby, BC"
+                  value={experienceObj.city || ""}
+                  maxLength={40}
                   onChange={function(e) {
                     handleChange("city", e.target.value);
                   }}
@@ -635,6 +699,8 @@ function ExperienceInfo({ experience, setExperience, mode }) {
                 <input
                   type="text"
                   placeholder="2016-2023"
+                  value={editingEntry.date || ""}
+                  maxLength={15}
                   onChange={function(e) {
                     handleChange("date", e.target.value);
                   }}
@@ -642,12 +708,16 @@ function ExperienceInfo({ experience, setExperience, mode }) {
                 <input
                   type="text"
                   placeholder="Senior Developer"
+                  value={experienceObj.role || ""}
+                  maxLength={40}
                   onChange={function(e) {
                     handleChange("role", e.target.value);
                   }}
                 ></input>
                 <textarea
                   placeholder="Interesting information about your experience, keep it short!"
+                  value={experienceObj.info || ""}
+                  maxLength={60}
                   onChange={function(e) {
                     handleChange("info", e.target.value);
                   }}
@@ -660,7 +730,11 @@ function ExperienceInfo({ experience, setExperience, mode }) {
                   type="button"
                   onClick={function() {
                     setEditing(false);
-                    setExperienceObj({});
+                    setExperienceObj({ id: uniqid() });
+                    if (Object.keys(editingEntry).length > 0) {
+                      setExperience([...experience, editingEntry]);
+                      setEditingEntry({});
+                    }
                   }}
                 >
                   Cancel

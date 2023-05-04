@@ -104,9 +104,6 @@ button {
 }
 
 .resume__container {
-  border: 1px solid red;
-  padding: 1rem;
-  width: 100vw;
   display: flex;
   justify-content: center;
   flex: 1 1 auto;
@@ -205,6 +202,7 @@ button {
 .work__entry {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   padding: 1rem;
 }
 
@@ -229,4 +227,9 @@ button {
 .education__degree,
 .work__role {
   font-style: italic;
+}
+
+.button__wrapper {
+  display: flex;
+  gap: 1rem;
 }
